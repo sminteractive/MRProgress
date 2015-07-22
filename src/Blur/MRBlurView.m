@@ -16,6 +16,7 @@
 @interface MRBlurView ()
 
 @property (nonatomic, assign) BOOL redrawOnFrameChange;
+@property (nonatomic, strong) UIColor *customBackgroundColor;
 
 @end
 
@@ -39,6 +40,7 @@
 }
 
 - (void)commonInit {
+    self.customBackgroundColor = [UIColor colorWithRed:34.0/255.0 green:34.0/255.0 blue:36.0/255.0 alpha:1];
     [self setPlaceholder];
     self.clipsToBounds = YES;
     [self registerForNotificationCenter];
@@ -102,7 +104,7 @@
 #pragma mark - Redraw
 
 - (void)setPlaceholder {
-    self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.96];
+    self.backgroundColor = self.customBackgroundColor;
 }
 
 - (void)clearPlaceholder {
@@ -126,7 +128,8 @@
     }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        image = [image mr_applyBlurWithRadius:30.0 tintColor:[UIColor colorWithWhite:0.97 alpha:0.82] saturationDeltaFactor:1.0 maskImage:nil];
+        UIColor *bgColor = [self.customBackgroundColor colorWithAlphaComponent:0.82];
+        image = [image mr_applyBlurWithRadius:30.0 tintColor:bgColor saturationDeltaFactor:1.0 maskImage:nil];
         dispatch_async(dispatch_get_main_queue(), ^{
             // Fade on content's change, dependent if there was already an image.
             CATransition *transition = [CATransition new];
