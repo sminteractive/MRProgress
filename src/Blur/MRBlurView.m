@@ -40,7 +40,7 @@
 }
 
 - (void)commonInit {
-    self.customBackgroundColor = [UIColor colorWithRed:34.0/255.0 green:34.0/255.0 blue:36.0/255.0 alpha:1];
+    self.customBackgroundColor = [UIColor colorWithRed:17.0/255.0 green:17.0/255.0 blue:18.0/255.0 alpha:1];
     [self setPlaceholder];
     self.clipsToBounds = YES;
     [self registerForNotificationCenter];
